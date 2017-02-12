@@ -16,6 +16,10 @@ from nltk.tokenize import sent_tokenize
 import tensorflow as tf
 from tensorflow.core.example import example_pb2
 
+from numpy.random import seed as random_seed
+from numpy.random import shuffle as random_shuffle
+
+random_seed(123)  # Reproducibility
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('command', 'text_to_binary',
@@ -27,6 +31,8 @@ tf.app.flags.DEFINE_string('split', '', 'comma separated fractions of data')
 
 def _text_to_binary(input_directories, output_filenames, split_fractions):
   filenames = _get_filenames(input_directories)
+  
+  random_shuffle(filenames)
   
   start_from_index = 0
   for index, output_filename in enumerate(output_filenames):
