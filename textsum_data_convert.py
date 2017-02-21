@@ -59,6 +59,8 @@ def _text_to_vocabulary(input_directories, vocabulary_filename, max_words=200000
   with open(vocabulary_filename, 'w') as writer:
     for word, count in counter.most_common(max_words - 2):
       writer.write(word + ' ' + str(count) + '\n')
+    writer.write('<s> 0\n')
+    writer.write('</s> 0\n')
     writer.write('<UNK> 0\n')
     writer.write('<PAD> 0\n')
 
